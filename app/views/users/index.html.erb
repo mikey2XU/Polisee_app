@@ -1,3 +1,29 @@
-<%# app/views/records/index.html.erb %>
+<!DOCTYPE html>
+<html>
+<body onload="getLocation()"> 
 
- <%= react_component 'Records', { data: @records } %>
+<script>
+function getLocation() {
+        navigator.geolocation.getCurrentPosition(showPosition);
+        navigator.geolocation.getCurrentPosition(setGeoCookie);
+    } 
+
+function showPosition(position) {
+   var coords = position.coords
+      console.log(coords)
+   		return coords
+}
+
+function setGeoCookie(position) {
+  var cookie_val = position.coords.latitude + "|" + position.coords.longitude;
+  document.cookie = "lat_lng=" + escape(cookie_val);
+}
+
+</script>
+
+<h2><%= @name_array%></h2>
+<h2><%= @lat %></h2>
+<h2><%= @lng %></h2>
+
+<%= react_component 'Users', { data: @users } %>
+
